@@ -26,9 +26,9 @@ namespace Ki_ADAS
         private SettingConfigDb _db;
         private ModelRepository _modelRepository;
         private InfoRepository _infoRepository;
-        private VEPBenchClient _vepBenchClient;
         private IniFile _iniFile;
-        private Thread_Main _mainThread;
+        public VEPBenchClient _vepBenchClient;
+        public Thread_Main _mainThread;
         public static string ipAddress;
         public static int port;
         public static string barcodeIp;
@@ -152,8 +152,6 @@ namespace Ki_ADAS
 
                 AddLogMessage("ADAS process started.");
                 m_frmParent.noticeDlg.Hide();
-
-
             }
             catch (Exception ex)
             {
@@ -212,7 +210,7 @@ namespace Ki_ADAS
                 return;
             }
 
-            if (_infoRepository.PjiExists(pji))
+            if (!_infoRepository.PjiExists(pji))
             {
                 var newVehicle = new Info
                 {
@@ -246,6 +244,11 @@ namespace Ki_ADAS
 
                 AddLogMessage($"Vehicle automatically registered: {newVehicle.PJI} / {newVehicle.Model}");
             }
+            else
+            {
+                MsgBox.Info("PjiAlreadyExists", "Notification");
+                AddLogMessage($"PJI '{pji}' already exists in database.");
+            }
         }
 
         public void AddLogMessage(string message)
@@ -276,8 +279,6 @@ namespace Ki_ADAS
         {
             try
             {
-
-
 				this.seqList.DrawColumnHeader += new DrawListViewColumnHeaderEventHandler(this.seqList_DrawColumnHeader);
                 this.seqList.DrawSubItem += new DrawListViewSubItemEventHandler(this.seqList_DrawSubItem);
                 this.seqList.SelectedIndexChanged += new EventHandler(this.seqList_SelectedIndexChanged);
@@ -367,24 +368,19 @@ namespace Ki_ADAS
                 lbl_model.Text = selectedVehicle?.Model ?? "-";
                 lbl_pji.Text = selectedVehicle?.PJI ?? "-";
                 lbl_wheelbase.Text = SelectedModelInfo?.Wheelbase.ToString() ?? "-";
+                lblRoll.Text = GlobalVal.Instance._VEP.SynchroZone.FrontCameraAngle1.ToString();
+                lblAzimuth.Text = GlobalVal.Instance._VEP.SynchroZone.FrontCameraAngle2.ToString();
+                lblElevation.Text = GlobalVal.Instance._VEP.SynchroZone.FrontCameraAngle3.ToString();
+                lblRearRightRadarAngle.Text = GlobalVal.Instance._VEP.SynchroZone.RearRightRadarAngle.ToString();
+                lblRearLeftRadarAngle.Text = GlobalVal.Instance._VEP.SynchroZone.RearLeftRadarAngle.ToString();
+                lblFrontRightRadarAngle.Text = GlobalVal.Instance._VEP.SynchroZone.FrontRightRadarAngle.ToString();
+                lblFrontLeftRadarAngle.Text = GlobalVal.Instance._VEP.SynchroZone.FrontLeftRadarAngle.ToString();
             }
             catch (Exception ex)
             {
                 MsgBox.ErrorWithFormat("ErrorUpdatingVehicleInfo", "Error", ex.Message);
             }
         }
-
-		
-		private void button1_Click(object sender, EventArgs e)
-		{
-
-			this.Location = new Point(120, 20);
-
-			//int SubViewWidth = 1850 - 100;
-			//int SubViewHeight = 750 - 50;
-
-			//GWA.MW(this.Handle, 120, 20, (uint)SubViewWidth, (uint)SubViewHeight);
-		}
 
 		private void BtnSimulator_Click(object sender, EventArgs e)
 		{

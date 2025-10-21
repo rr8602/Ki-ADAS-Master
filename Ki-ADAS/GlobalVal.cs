@@ -44,10 +44,6 @@ namespace Ki_ADAS
 
     internal class GlobalVal
     {
-
-
-
-
 		private static readonly Lazy<GlobalVal> _instance = new Lazy<GlobalVal>(() => new GlobalVal());
         public static GlobalVal Instance => _instance.Value;
         private GlobalVal()

@@ -482,10 +482,5 @@ namespace Ki_ADAS
                 MsgBox.ErrorWithFormat("ErrorLoadingModelDetails", "Error", ex.Message);
             }
         }
-
-		private void panel3_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-	}
+    }
 }

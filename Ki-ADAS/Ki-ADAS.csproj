@@ -209,6 +209,7 @@
     <Compile Include="ThreadADAS\Thread_FrontRadar.cs" />
     <Compile Include="ThreadADAS\Thread_Main.cs" />
     <Compile Include="ThreadADAS\Thread_RearRadar.cs" />
+    <Compile Include="ThreadADAS\XmlDataSaver.cs" />
     <Compile Include="VEPBench\VEPBenchClient.cs" />
     <Compile Include="VEPBench\VEPBenchDescriptionZone.cs" />
     <Compile Include="VEPBench\VEPBenchReceptionZone.cs" />

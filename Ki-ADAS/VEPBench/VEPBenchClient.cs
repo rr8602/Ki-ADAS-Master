@@ -26,7 +26,6 @@ namespace Ki_ADAS
         private bool _isConnected = false;
 
         // 시작 주소 값
-        private ushort Addr_Validity;
         private ushort Addr_StatusZone;
         private ushort Addr_SynchroZone;
         private ushort Addr_TransmissionZone;
@@ -114,7 +113,6 @@ namespace Ki_ADAS
 
         private void InitializeAddresses()
         {
-            Addr_Validity = 0;
             Addr_StatusZone = _vepManager.DescriptionZone.StatusZoneAddr;
             Addr_SynchroZone = _vepManager.DescriptionZone.SynchroZoneAddr;
             Addr_TransmissionZone = _vepManager.DescriptionZone.TransmissionZoneAddr;
@@ -413,17 +411,17 @@ namespace Ki_ADAS
 
             try
             {
-                var values = _modbusMaster.ReadHoldingRegisters(1, Addr_Validity, 1); // VEP 서버
+                var value = _vepManager.DescriptionZone.ValidityIndicator;
 
-                if (values[0] == 0)
+                if (value == 0)
                 {
                     throw new Exception("VEP 소프트웨어가 준비되지 않았습니다.");
                 }
 
-                LogMessage($"유효성 표시기 읽기: {values[0]} " +
+                LogMessage($"유효성 표시기 읽기: {value} " +
                     $"(0=VEP 소프트웨어 미준비, 1=VEP 소프트웨어 준비됨)");
 
-                return values[0];
+                return value;
             }
             catch (Exception ex)
             {

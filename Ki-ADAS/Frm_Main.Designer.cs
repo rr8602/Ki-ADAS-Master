@@ -36,7 +36,6 @@
             this.lbl_title = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.seqList = new System.Windows.Forms.ListView();
-            this.button1 = new System.Windows.Forms.Button();
             this.label30 = new System.Windows.Forms.Label();
             this.lb_Message = new System.Windows.Forms.ListBox();
             this.BtnStart = new System.Windows.Forms.Button();
@@ -151,17 +150,6 @@
             this.seqList.View = System.Windows.Forms.View.Details;
             this.seqList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.seqList_MouseClick);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1113, 905);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 31);
-            this.button1.TabIndex = 168;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // label30
             // 
             this.label30.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
@@ -203,7 +191,7 @@
             // 
             this.BtnStop.BackColor = System.Drawing.Color.Gray;
             this.BtnStop.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnStop.Location = new System.Drawing.Point(1015, 804);
+            this.BtnStop.Location = new System.Drawing.Point(1011, 804);
             this.BtnStop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnStop.Name = "BtnStop";
             this.BtnStop.Size = new System.Drawing.Size(745, 84);
@@ -354,10 +342,10 @@
             // 
             // label4
             // 
-            this.label4.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(1026, 513);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(214, 40);
+            this.label4.Size = new System.Drawing.Size(268, 40);
             this.label4.TabIndex = 178;
             this.label4.Text = "Front Camera Elevation";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -374,10 +362,10 @@
             // 
             // label7
             // 
-            this.label7.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(1026, 465);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(214, 40);
+            this.label7.Size = new System.Drawing.Size(260, 40);
             this.label7.TabIndex = 176;
             this.label7.Text = "Front Camera Azimuth";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -394,7 +382,7 @@
             // 
             // label8
             // 
-            this.label8.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(1026, 418);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(214, 40);
@@ -414,7 +402,7 @@
             // 
             // label9
             // 
-            this.label9.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(1026, 570);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(241, 40);
@@ -434,7 +422,7 @@
             // 
             // label12
             // 
-            this.label12.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(1026, 618);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(241, 40);
@@ -454,7 +442,7 @@
             // 
             // label10
             // 
-            this.label10.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(1406, 570);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(225, 40);
@@ -474,7 +462,7 @@
             // 
             // label11
             // 
-            this.label11.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(1406, 620);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(225, 40);
@@ -526,7 +514,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.seqList);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label30);
             this.Controls.Add(this.lb_Message);
             this.Controls.Add(this.GB_GenInfo);
@@ -551,7 +538,6 @@
         private System.Windows.Forms.Label lbl_title;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView seqList;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.ListBox lb_Message;
         private System.Windows.Forms.Button BtnStart;

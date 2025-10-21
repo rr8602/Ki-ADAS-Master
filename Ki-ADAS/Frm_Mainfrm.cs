@@ -158,6 +158,7 @@ namespace Ki_ADAS
         {
             RepositionSubForm(this.ActiveSubForm);
         }
+
 		private void CreateNoticeDlg()
 		{
 			noticeDlg = new Frm_Notice();
@@ -172,10 +173,13 @@ namespace Ki_ADAS
 
 			gv.noticeHwnd = noticeDlg.Handle;
 		}
+
 		private void StartBarcode()
         {
             try
             {
+                m_frmMain._vepBenchClient.StartMonitoring();
+                m_frmMain._mainThread.StartThread();
                 _barcodeReader = new BarcodeReader(Frm_Main.barcodeIp);
                 _barcodeReader.OnBarcodeReceived += BarcodeReceivedHandler;
                 _barcodeReader.OnError += BarcodeReader_OnError;
