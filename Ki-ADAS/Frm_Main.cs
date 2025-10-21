@@ -151,8 +151,9 @@ namespace Ki_ADAS
                 _mainThread.StartThread();
 
                 AddLogMessage("ADAS process started.");
+                m_frmParent.noticeDlg.Hide();
 
-				
+
             }
             catch (Exception ex)
             {

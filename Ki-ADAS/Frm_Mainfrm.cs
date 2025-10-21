@@ -43,7 +43,7 @@ namespace Ki_ADAS
         private const string VEP_PORT = "VepPort";
 
 
-		Frm_Notice noticeDlg = null;
+		public Frm_Notice noticeDlg = null;
 
 		public Frm_Mainfrm(SettingConfigDb dbInstance)
         {

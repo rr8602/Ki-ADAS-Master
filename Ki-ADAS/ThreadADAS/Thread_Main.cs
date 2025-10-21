@@ -493,7 +493,7 @@ namespace Ki_ADAS
             try
             {
                 _main.m_frmParent.User_Monitor.UpdateStepDescription("StepDescStartSensorTest");
-
+                if (Cur_Model == null) return;
                 if (Cur_Model.FC_IsTest == true)
                 {
                     _frCamCompleteEvent.Reset();
