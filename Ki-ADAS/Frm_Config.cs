@@ -9,6 +9,8 @@ using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
 using System.IO;
+using System.Data;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,11 +26,10 @@ namespace Ki_ADAS
         private const string VEP_IP_KEY = "VepIp";
         private const string VEP_PORT_KEY = "VepPort";
         private const string BARCODE_IP_KEY = "BarcodeIp";
-        private const string LANGUAGE_KEY = "System";
-        private const string LANGUAGE_SECTION = "Language";
 
         private SettingConfigDb db;
         private ModelRepository _modelRepository;
+        private DataTable languageTable;
 
         public Frm_Config(SettingConfigDb dbInstance)
         {
@@ -55,6 +56,7 @@ namespace Ki_ADAS
             {
                 LoadSettings();
                 LoadModelList();
+                InitializeLanguageEditor();
             }
             catch (Exception ex)
             {
@@ -88,56 +90,10 @@ namespace Ki_ADAS
                 TxtVepIp.Text = _iniFile.ReadValue(CONFIG_SECTION, VEP_IP_KEY);
                 TxtVepPort.Text = _iniFile.ReadValue(CONFIG_SECTION, VEP_PORT_KEY);
                 TxtBarcodeIp.Text = _iniFile.ReadValue(CONFIG_SECTION, BARCODE_IP_KEY);
-
-                string languageStr = _iniFile.ReadValue(LANGUAGE_SECTION, LANGUAGE_KEY, "0");
-                int languageIndex = 0;
-
-                if (int.TryParse(languageStr, out languageIndex) && languageIndex >= 0 && languageIndex < cmb_language.Items.Count)
-                {
-                    cmb_language.SelectedIndex = languageIndex;
-                }
-                else
-                {
-                    cmb_language.SelectedIndex = 0; // 기본값으로 영어 선택
-                }
             }
             catch (Exception ex)
             {
                 MsgBox.ErrorWithFormat("ErrorLoadingSettings", "Error", ex.Message);
-            }
-        }
-
-        public void SaveLanguageSettings()
-        {
-            if (cmb_language.SelectedItem != null)
-            {
-                Language selectedLanguage = Language.English;
-
-                switch (cmb_language.SelectedIndex)
-                {
-                    case 0:
-                        selectedLanguage = Language.English;
-                        break;
-                    case 1:
-                        selectedLanguage = Language.Portuguese;
-                        break;
-                    case 2:
-                        selectedLanguage = Language.Korean;
-                        break;
-                }
-
-                try
-                {
-                    LanguageManager.ChangeLanguage(selectedLanguage);
-
-                    _iniFile.WriteValue(LANGUAGE_SECTION, LANGUAGE_KEY, cmb_language.SelectedIndex.ToString());
-
-                    MsgBox.Info("LanguageChangeSuccess");
-                }
-                catch (Exception ex)
-                {
-                    MsgBox.ErrorWithFormat("UnhandledExceptionInEvent", "Error", ex.Message);
-                }
             }
         }
 
@@ -154,48 +110,6 @@ namespace Ki_ADAS
                 Frm_Main.barcodeIp = TxtBarcodeIp.Text;
 
                 MsgBox.Info("ConfigSaveSuccess");
-            }
-            catch (Exception ex)
-            {
-                MsgBox.ErrorWithFormat("UnhandledExceptionInEvent", "Error", ex.Message);
-            }
-        }
-
-        private void BtnLanSave_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SaveLanguageSettings();
-            }
-            catch (Exception ex)
-            {
-                MsgBox.ErrorWithFormat("UnhandledExceptionInEvent", "Error", ex.Message);
-            }
-        }
-
-        private void cmb_language_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (cmb_language.SelectedItem != null)
-                {
-                    Language selectedLanguage = Language.English;
-
-                    switch (cmb_language.SelectedIndex)
-                    {
-                        case 0:
-                            selectedLanguage = Language.English;
-                            break;
-                        case 1:
-                            selectedLanguage = Language.Portuguese;
-                            break;
-                        case 2:
-                            selectedLanguage = Language.Korean;
-                            break;
-                    }
-
-                    LanguageManager.ChangeLanguage(selectedLanguage);
-                }
             }
             catch (Exception ex)
             {
@@ -480,6 +394,118 @@ namespace Ki_ADAS
             catch (Exception ex)
             {
                 MsgBox.ErrorWithFormat("ErrorLoadingModelDetails", "Error", ex.Message);
+            }
+        }
+        private void InitializeLanguageEditor()
+        {
+            try
+            {
+                string langFolderPath = Path.Combine(Application.StartupPath, "Language");
+                IniFile englishIni = new IniFile(Path.Combine(langFolderPath, "english.ini"));
+                IniFile portugueseIni = new IniFile(Path.Combine(langFolderPath, "portuguese.ini"));
+                IniFile koreanIni = new IniFile(Path.Combine(langFolderPath, "korean.ini"));
+
+                var englishKeys = englishIni.GetKeys("Messages");
+                var portugueseKeys = portugueseIni.GetKeys("Messages");
+                var koreanKeys = koreanIni.GetKeys("Messages");
+
+                var allKeys = englishKeys.Union(portugueseKeys).Union(koreanKeys).Distinct().OrderBy(k => k).ToList();
+
+                languageTable = new DataTable();
+                languageTable.Columns.Add("Description", typeof(string));
+                languageTable.Columns.Add("English", typeof(string));
+                languageTable.Columns.Add("Portuguese", typeof(string));
+                languageTable.Columns.Add("Korean", typeof(string));
+
+                foreach (string key in allKeys)
+                {
+                    languageTable.Rows.Add(
+                        key,
+                        englishIni.ReadValue("Messages", key),
+                        portugueseIni.ReadValue("Messages", key),
+                        koreanIni.ReadValue("Messages", key)
+                    );
+                }
+
+                dgvLanguage.DataSource = languageTable;
+                dgvLanguage.Columns["Description"].ReadOnly = true;
+                dgvLanguage.Columns["Description"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvLanguage.Columns["English"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvLanguage.Columns["Portuguese"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvLanguage.Columns["Korean"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                dgvLanguage.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
+                dgvLanguage.EnableHeadersVisualStyles = false;
+                dgvLanguage.RowHeadersVisible = false;
+
+                dgvLanguage.AllowUserToResizeColumns = false;
+                dgvLanguage.AllowUserToResizeRows = false;
+
+                dgvLanguage.Columns["Description"].DefaultCellStyle.BackColor = Color.LightGray;
+            }
+            catch (Exception ex)
+            {
+                MsgBox.Error("Error initializing language editor: " + ex.Message);
+            }
+        }
+
+        private void BtnAddLang_Click(object sender, EventArgs e)
+        {
+            using (var inputBox = new InputBoxForm("Enter the new language key (Description):", "Add New Key"))
+            {
+                if (inputBox.ShowDialog(this) == DialogResult.OK)
+                {
+                    string newKey = inputBox.Value;
+
+                    if (string.IsNullOrWhiteSpace(newKey))
+                        return;
+
+                    bool keyExists = languageTable.AsEnumerable().Any(row => row.Field<string>("Description").Equals(newKey, StringComparison.OrdinalIgnoreCase));
+
+                    if (keyExists)
+                    {
+                        MsgBox.Warn("This key already exists.");
+                        return;
+                    }
+
+                    DataRow newRow = languageTable.NewRow();
+                    newRow["Description"] = newKey;
+                    newRow["English"] = "";
+                    newRow["Portuguese"] = "";
+                    newRow["Korean"] = "";
+                    languageTable.Rows.InsertAt(newRow, 0);
+                }
+            }
+        }
+
+        private void BtnSaveLang_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string langFolderPath = Path.Combine(Application.StartupPath, "Language");
+                IniFile englishIni = new IniFile(Path.Combine(langFolderPath, "english.ini"));
+                IniFile portugueseIni = new IniFile(Path.Combine(langFolderPath, "portuguese.ini"));
+                IniFile koreanIni = new IniFile(Path.Combine(langFolderPath, "korean.ini"));
+
+                foreach (DataRow row in languageTable.Rows)
+                {
+                    string key = row["Description"].ToString();
+                    string englishValue = row["English"].ToString();
+                    string portugueseValue = row["Portuguese"].ToString();
+                    string koreanValue = row["Korean"].ToString();
+
+                    englishIni.WriteValue("Messages", key, englishValue);
+                    portugueseIni.WriteValue("Messages", key, portugueseValue);
+                    koreanIni.WriteValue("Messages", key, koreanValue);
+                }
+
+                MsgBox.Info("Language settings saved successfully.");
+
+                LanguageManager.ChangeLanguage(LanguageManager.CurrentLanguageSetting);
+            }
+            catch (Exception ex)
+            {
+                MsgBox.Error("Error saving language settings: " + ex.Message);
             }
         }
     }

@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
+using Zebra420T;
+
 namespace Ki_ADAS
 {
     public class Thread_Main
@@ -636,9 +638,11 @@ namespace Ki_ADAS
                     return;
                 }
 
-                string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-                string xmlFileName = $"{timestamp}-{result.PJI}-1.xml";
-                string sPath = Path.Combine(Application.StartupPath, xmlFileName);
+                string basePath = @"E:\KI-ADAS-Master\Excute";
+                string dataPath = Path.Combine(basePath, "Data", DateTime.Now.ToString("yyyy"), DateTime.Now.ToString("MM"), DateTime.Now.ToString("dd"));
+                Directory.CreateDirectory(dataPath);
+                string xmlFileName = $"{result.PJI}.xml";
+                string sPath = Path.Combine(dataPath, xmlFileName);
                 string cycleTime = (_result.EndTime - _result.StartTime).TotalSeconds.ToString("F6");
 
                 var xmlDataSaver = new XmlDataSaver(result, Cur_Model, _frCam, cycleTime);
@@ -662,12 +666,12 @@ namespace Ki_ADAS
         {
             try
             {
-                _main.m_frmParent.User_Monitor.UpdateStepDescription("StepDescPrintTicket");
+                string sPrinterName = "Zebra420T";
 
                 Result resultData = CreateResultInfo();
                 bool isOk = resultData.FC_IsOk && resultData.FR_IsOk && resultData.RR_IsOk;
 
-                var adasData = new Zebra420T.ADASString
+                var adasData = new ADASString
                 {
                     Identification = resultData.PJI,
                     Description = resultData.Model,
@@ -678,19 +682,17 @@ namespace Ki_ADAS
                     Duration = (resultData.EndTime - resultData.StartTime).TotalSeconds.ToString() + "    segun"
                 };
 
-                _main.Invoke(new Action(() =>
-                {
-                    using (var printForm = new Zebra420T.ZebraForm(adasData))
-                    {
-                        printForm.ShowDialog();
-                    }
-                }));
+                string printString = adasData.GeneratePrintString();
+                string zplString = ZebraForm.GenerateZpl(printString);
 
-                SetState(TS.STEP_MAIN_GRET_COMM);
+                if (RawPrinterHelper.SendStringToPrinter(sPrinterName, zplString))
+                    SetState(TS.STEP_MAIN_GRET_COMM);
+                else
+                    return;
             }
             catch (Exception ex)
             {
-                MsgBox.ErrorWithFormat("ErrorPrintingTicket", "Error", ex.Message);
+                Console.WriteLine("Error during printing: " + ex.Message);
             }
         }
 

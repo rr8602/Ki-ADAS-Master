@@ -72,7 +72,7 @@ namespace Zebra420T
             }
         }
 
-        private string GenerateZpl(string printString)
+        public static string GenerateZpl(string printString)
         {
             const int labelHeightDots = 610;
             const int margin = 80;

@@ -124,12 +124,9 @@
             this.lbl_plcIp = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.cmb_language = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.lbl_language = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.BtnLanSave = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
+            this.dgvLanguage = new System.Windows.Forms.DataGridView();
+            this.btnAddLang = new System.Windows.Forms.Button();
+            this.btnSaveLang = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -1337,87 +1334,53 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.Transparent;
-            this.panel4.Controls.Add(this.cmb_language);
-            this.panel4.Controls.Add(this.comboBox1);
-            this.panel4.Controls.Add(this.lbl_language);
-            this.panel4.Controls.Add(this.textBox8);
-            this.panel4.Controls.Add(this.BtnLanSave);
-            this.panel4.Controls.Add(this.label14);
-            this.panel4.Location = new System.Drawing.Point(-232, -190);
+            
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(3, 5);
             this.panel4.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(2571, 1998);
+            this.panel4.Size = new System.Drawing.Size(1824, 1003);
             this.panel4.TabIndex = 160;
+            this.panel4.Controls.Add(this.btnSaveLang);
+            this.panel4.Controls.Add(this.btnAddLang);
+            this.panel4.Controls.Add(this.dgvLanguage);
             // 
-            // cmb_language
+            // dgvLanguage
             // 
-            this.cmb_language.FormattingEnabled = true;
-            this.cmb_language.Items.AddRange(new object[] {
-            "English",
-            "Portuguese",
-            "Korean"});
-            this.cmb_language.Location = new System.Drawing.Point(501, 258);
-            this.cmb_language.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.cmb_language.Name = "cmb_language";
-            this.cmb_language.Size = new System.Drawing.Size(386, 35);
-            this.cmb_language.TabIndex = 219;
-            this.cmb_language.SelectedIndexChanged += new System.EventHandler(this.cmb_language_SelectedIndexChanged);
+            this.dgvLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvLanguage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLanguage.Location = new System.Drawing.Point(3, 3);
+            this.dgvLanguage.Name = "dgvLanguage";
+            this.dgvLanguage.RowHeadersWidth = 51;
+            this.dgvLanguage.RowTemplate.Height = 23;
+            this.dgvLanguage.Size = new System.Drawing.Size(1818, 938);
+            this.dgvLanguage.TabIndex = 0;
             // 
-            // comboBox1
+            // btnAddLang
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(0, 0);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(136, 35);
-            this.comboBox1.TabIndex = 218;
+            this.btnAddLang.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddLang.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddLang.Location = new System.Drawing.Point(3, 947);
+            this.btnAddLang.Name = "btnAddLang";
+            this.btnAddLang.Size = new System.Drawing.Size(150, 50);
+            this.btnAddLang.TabIndex = 1;
+            this.btnAddLang.Text = "Add";
+            this.btnAddLang.UseVisualStyleBackColor = true;
+            this.btnAddLang.Click += new System.EventHandler(this.BtnAddLang_Click);
             // 
-            // lbl_language
+            // btnSaveLang
             // 
-            this.lbl_language.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_language.ForeColor = System.Drawing.Color.Black;
-            this.lbl_language.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.lbl_language.Location = new System.Drawing.Point(317, 258);
-            this.lbl_language.Name = "lbl_language";
-            this.lbl_language.Size = new System.Drawing.Size(160, 30);
-            this.lbl_language.TabIndex = 217;
-            this.lbl_language.Text = "Language";
-            this.lbl_language.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(262, 52);
-            this.textBox8.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.textBox8.Multiline = true;
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(396, 76);
-            this.textBox8.TabIndex = 216;
-            // 
-            // BtnLanSave
-            // 
-            this.BtnLanSave.Font = new System.Drawing.Font("Arial", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnLanSave.Location = new System.Drawing.Point(2038, 1796);
-            this.BtnLanSave.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.BtnLanSave.Name = "BtnLanSave";
-            this.BtnLanSave.Size = new System.Drawing.Size(520, 189);
-            this.BtnLanSave.TabIndex = 214;
-            this.BtnLanSave.Tag = "SaveButton";
-            this.BtnLanSave.Text = "S A V E";
-            this.BtnLanSave.UseVisualStyleBackColor = true;
-            this.BtnLanSave.Click += new System.EventHandler(this.BtnLanSave_Click);
-            // 
-            // label14
-            // 
-            this.label14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label14.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.Aqua;
-            this.label14.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.label14.Location = new System.Drawing.Point(25, 52);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(215, 79);
-            this.label14.TabIndex = 199;
-            this.label14.Text = "PLC IP";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnSaveLang.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveLang.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveLang.Location = new System.Drawing.Point(1671, 947);
+            this.btnSaveLang.Name = "btnSaveLang";
+            this.btnSaveLang.Size = new System.Drawing.Size(150, 50);
+            this.btnSaveLang.TabIndex = 2;
+            this.btnSaveLang.Text = "Save";
+            this.btnSaveLang.UseVisualStyleBackColor = true;
+            this.btnSaveLang.Click += new System.EventHandler(this.BtnSaveLang_Click);
             // 
             // Frm_Config
             // 
@@ -1476,12 +1439,9 @@
         private System.Windows.Forms.Label lbl_plcIp;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.Button BtnLanSave;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ComboBox cmb_language;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label lbl_language;
+        private System.Windows.Forms.DataGridView dgvLanguage;
+        private System.Windows.Forms.Button btnAddLang;
+        private System.Windows.Forms.Button btnSaveLang;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.TextBox txtStCt;

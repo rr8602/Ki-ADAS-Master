@@ -168,6 +168,12 @@
     <Compile Include="Frm_Result.Designer.cs">
       <DependentUpon>Frm_Result.cs</DependentUpon>
     </Compile>
+    <Compile Include="InputBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputBoxForm.Designer.cs">
+      <DependentUpon>InputBoxForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalVal.cs" />
     <Compile Include="GWA.cs" />
     <Compile Include="MsgBox.cs" />
@@ -244,6 +250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_Result.resx">
       <DependentUpon>Frm_Result.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputBoxForm.resx">
+      <DependentUpon>InputBoxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_VEP.resx">
       <DependentUpon>Frm_VEP.cs</DependentUpon>
